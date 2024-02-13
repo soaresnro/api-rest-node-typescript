@@ -1,24 +1,22 @@
 import { Router } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import { CidadesController } from './../controllers';
 
 const router = Router();
 
-router.get('/cidades', (req, res) => {
-    console.log(req.query);
-    return res.status(StatusCodes.OK).send(`Querstring Parameters: ${req.query.nome || 'vazio'}`);
+router.get('/', (_, res) => {
+    return res.status(StatusCodes.OK).send('Olá, DEV!');    
 });
 
+//#region CidadesController
 
-router.get('/cidades/:id', (req, res) => {
-    console.log(req.params.id);
-    return res.status(StatusCodes.OK).json('{Id: ' + `${req.params.id}` + '}');
-});
+router.get('/cidades/:id', (req, res) => CidadesController.getById(req.params.id, res));
 
+router.get('/cidades', (req, res) => CidadesController.getByFilters(req, res));
 
-router.post('/cidades', (req, res) => {
-    return res.status(StatusCodes.CREATED).json(req.body);
-});
+router.post('/cidades', (req, res) => CidadesController.create(req, res));
 
+//#endregion CidadesController
 
 
 
