@@ -5,7 +5,7 @@ const router = Router();
 
 router.get('/cidades', (req, res) => {
     console.log(req.query);
-    return res.status(StatusCodes.OK).send('Querstring Parameters: ' + `${req.query}`);
+    return res.status(StatusCodes.OK).send(`Querstring Parameters: ${req.query.nome || 'vazio'}`);
 });
 
 
